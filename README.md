@@ -359,7 +359,7 @@ python3 main.py
 
 ### 方法三：使用 Cloudflare DNS 域名（最新功能）
 
-如果您已启用 Cloudflare DNS 批量更新，则可以直接在 EdgeTunnel 的“优选 IP”或“代理地址”处填入您配置的子域名（如 `cf-proxy.yourdomain.com`）。该域名会自动解析到当前最优的多个 IP 之一，实现零配置动态切换。
+如果您已启用 Cloudflare DNS 批量更新，则可以直接在 EdgeTunnel 的“自定义订阅”或“PROXYIP”处填入您配置的子域名（如 `cf-proxy.yourdomain.com`）。该域名会自动解析到当前最优的多个 IP 之一，实现零配置动态切换。
 
 ### 💡 为什么这样对接更有效？
 - **低延迟**：`main.py` 已经通过 TCP 握手筛选出了延迟最低的节点。
