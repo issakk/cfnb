@@ -78,7 +78,7 @@
             "enabled": true
         },
         {
-            "url": "https://raw.githubusercontent.com/xinyitang3/extract_ips/refs/heads/master/wtf.txt",
+            "url": "https://raw.githubusercontent.com/xinyitang3/extract_ips/refs/heads/develop/wtf.txt",
             "enabled": true
         }
     ],
