@@ -191,7 +191,7 @@ python3 main.py
    ```
 2. 创建虚拟环境并安装依赖：
    ```bash
-   python3 -m venv .venv && . .venv/bin/activate && pip install requests
+   python3 -m venv .venv && source .venv/bin/activate && pip install requests
    ```
 3. 赋予推送脚本执行权限（如果需要）：
    ```bash
@@ -199,7 +199,7 @@ python3 main.py
    ```
 4. （可选）添加 cron 任务：
    ```bash
-   (crontab -l 2>/dev/null; echo "*/5 * * * * cd $(pwd) && . .venv/bin/activate && nice -n -10 python main.py >> cron.log 2>&1") | crontab -
+   (crontab -l 2>/dev/null; echo "*/5 * * * * cd $(pwd) && source .venv/bin/activate && nice -n -10 python main.py >> cron.log 2>&1") | crontab -
    ```
 5. 验证：`crontab -l`
 
