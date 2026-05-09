@@ -21,7 +21,7 @@
 ---
 
 ### 📍 快速导航
-- 🚀 [我要部署](#-部署步骤)（Windows / Linux 命令对照）
+- 🚀 [我要部署](#-部署步骤)（Windows / Linux / Docker 命令对照）
 - 🔐 [我要获取 Token](#-获取必要令牌重要)（GitHub / Cloudflare / WxPusher 三合一教程）
 - ⚙️ [我要调整参数](#%EF%B8%8F-配置说明完整参数详解)
 - ☁️ [我要配置 Cloudflare DNS](#%EF%B8%8F-配置-cloudflare-dns-自动更新)
@@ -68,6 +68,7 @@
 | `ip.txt` | 最终优选节点列表（每次运行覆盖） |
 | `update_fork.ps1` | Windows 仓库修复脚本（解决 fork 后冲突/认证） |
 | `update_fork.sh` | Linux 仓库修复脚本（解决 fork 后冲突/认证） |
+| `Dockerfile` | Docker 容器化部署配置文件 |
 
 ---
 
@@ -204,6 +205,46 @@ python3 main.py
 5. 验证：`crontab -l`
 
 </details>
+
+### Docker 部署
+
+确保已安装 [Docker](https://docs.docker.com/get-docker/)，然后执行：
+
+```bash
+# 1. 构建镜像
+docker build -t cfnb .
+
+# 2. 运行容器（挂载输出目录和配置文件）
+docker run -v $(pwd)/config.json:/app/config.json -v $(pwd)/output:/app/output cfnb
+```
+
+**Windows PowerShell 写法**：
+```powershell
+docker run -v "${PWD}\config.json:/app/config.json" -v "${PWD}\output:/app/output" cfnb
+```
+
+**使用 Docker Compose**（可选）：
+
+创建 `docker-compose.yml`：
+```yaml
+services:
+  cfnb:
+    build: .
+    volumes:
+      - ./config.json:/app/config.json
+      - ./output:/app/output
+    restart: "no"
+```
+
+运行：`docker compose up`
+
+**定时运行**（配合系统 cron）：
+```bash
+# 每 5 分钟执行一次
+*/5 * * * * docker run --rm -v /path/to/config.json:/app/config.json -v /path/to/output:/app/output cfnb >> /path/to/cron.log 2>&1
+```
+
+> 💡 `output` 目录挂载后，`ip.txt` 会保存到宿主机的 `output/ip.txt`。
 
 ---
 
